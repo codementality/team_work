@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies: {  }
+id: project_administrator
+label: 'Project Administrator'
+weight: 3
+is_admin: null
+permissions:
+  - 'create company_team content'
+  - 'create project_team content'
+  - 'edit any company_team content'
+  - 'edit any project_team content'
+  - 'edit own company_team content'
+  - 'edit own project_team content'
+  - 'view company_team revisions'
+  - 'view project_team revisions'

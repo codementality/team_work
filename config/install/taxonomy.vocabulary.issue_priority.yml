@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Issue Priority'
+vid: issue_priority
+description: ''
+weight: 0

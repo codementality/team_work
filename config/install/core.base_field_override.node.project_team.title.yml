@@ -1,0 +1,17 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.project_team
+id: node.project_team.title
+field_name: title
+entity_type: node
+bundle: project_team
+label: 'Team Name'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

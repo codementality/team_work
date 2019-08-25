@@ -1,0 +1,48 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.company
+    - node.type.company_team
+    - node.type.project_team
+  module:
+    - content_moderation
+id: company
+label: 'Company/Company Team/Project Team'
+type: content_moderation
+type_settings:
+  states:
+    archived:
+      published: false
+      default_revision: false
+      label: Archived
+      weight: 2
+    draft:
+      label: Draft
+      published: false
+      default_revision: false
+      weight: 0
+    published:
+      label: Published
+      published: true
+      default_revision: true
+      weight: 1
+  transitions:
+    archived:
+      label: Archived
+      from:
+        - published
+      to: archived
+      weight: 2
+    publish:
+      label: Publish
+      to: published
+      weight: 1
+      from:
+        - published
+  entity_types:
+    node:
+      - company
+      - company_team
+      - project_team
+  default_moderation_state: published

@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: company_team
+label: 'Company/Project Team'
+type: 'canonical_entities:node'
+pattern: 'company/[node:field_company:target_id]/[node:content-type]/[node:title]'
+selection_criteria:
+  e9662be1-152d-4a39-af35-ec3fc025a0bd:
+    id: node_type
+    bundles:
+      company_team: company_team
+      project_team: project_team
+    negate: false
+    context_mapping:
+      node: node
+    uuid: e9662be1-152d-4a39-af35-ec3fc025a0bd
+selection_logic: and
+weight: -5
+relationships: {  }

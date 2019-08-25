@@ -1,0 +1,112 @@
+<?php
+
+/**
+ * @file
+ * Global and Private routines for Team Work.
+ */
+
+use Drupal\taxonomy\Entity\Term;
+
+/**
+ * Helper function to add terms to a vocabulary.
+ *
+ * @param string $vocab
+ *   Vocabulary ID.
+ * @param array $terms
+ *   Array of terms to add to vocabulary.
+ * @param bool $deleteterms
+ *   Flag to delete existing terms before adding new ones.  Defaults to TRUE.
+ */
+function _team_work_install_vocabulary_terms($vocab, array $terms, $deleteterms = TRUE) {
+  if ($deleteterms) {
+    _team_work_delete_vocabulary_terms($vocab);
+  }
+  // Sets weight to zero.
+  $i = 0;
+  $i_child = 0;
+  $i_grandchild = 0;
+
+  // Begins looping through the terms array.
+  foreach ($terms as $key => $value) {
+    if (is_int($key) && !is_array($value)) {
+      _team_work_add_vocabulary_term($vocab, $value, $i);
+      $i++;
+    }
+    else {
+      $term = _team_work_add_vocabulary_term($vocab, $key, $i);
+      // If value is also an array (child terms are present), add those terms.
+      if (is_array($value) && $term) {
+        foreach ($value as $k => $v) {
+          if (is_int($k)) {
+            $child = _team_work_add_vocabulary_term($vocab, $v, $i_child, $term->id());
+          }
+          else {
+            $child = _team_work_add_vocabulary_term($vocab, $k, $i_child, $term->id());
+
+            // If v is also an array (child terms are present), add those terms.
+            if (is_array($v)) {
+              foreach ($v as $final_term) {
+                $grandchild = _team_work_add_vocabulary_term($vocab, $final_term, $i_grandchild, $child->id());
+                $i_grandchild++;
+              }
+            }
+          }
+          $i_child++;
+        }
+      }
+      $i++;
+    }
+  }
+}
+
+/**
+ * Adds an array of terms to a vocabulary.
+ *
+ * @param string $vocab
+ *   The vocabulary machine name.
+ * @param string $term
+ *   The terms to add.
+ * @param int $weight
+ *   The optional weight value of the term.
+ * @param int $parent
+ *   The optional tid of the parent.
+ */
+function _team_work_add_vocabulary_term($vocab, $term, $weight = 0, $parent = 0) {
+  if ($term && $vocab) {
+    $t_array = [
+      'name' => $term,
+      'vid' => $vocab,
+    ];
+
+    $t_array['parent'] = $parent ? ['target_id' => $parent] : [];
+    if ($weight) {
+      $t_array['weight'] = $weight;
+    }
+
+    $term = Term::create($t_array);
+    $term->save();
+
+    return $term;
+  }
+
+  return FALSE;
+}
+
+/**
+ * Delete all terms within a vocabulary.
+ *
+ * @param string $vocab
+ *   The vocabulary machine name.
+ */
+function _team_work_delete_vocabulary_terms($vocab) {
+  // Delete all possible test data.
+  $tids = \Drupal::entityQuery('taxonomy_term')
+    ->condition('vid', $vocab)
+    ->execute();
+  foreach ($tids as $tid) {
+    $term = Term::load($tid);
+    if ($term) {
+      $term->delete();
+    }
+  }
+}

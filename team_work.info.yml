@@ -1,0 +1,25 @@
+name: Team Work
+description: Team Work, Project Management with Drupal
+package: Team Work
+
+dependencies:
+  - drupal:taxonomy
+  - drupal:email_registration
+  - drupal:pathauto
+  - drupal:content_moderation
+  - drupal:paragraphs
+  - drupal:scheduler
+  - drupal:field_permissions
+  - drupal:paragraphs_library
+  - drupal:token
+  - drupal:ctools
+  - drupal:workflows
+  - drupal:entity_reference_revisions
+  - drupal:entity_usage
+  - drupal:field_layout
+  - drupal:layout_discovery
+
+php: 7.3
+
+type: module
+core: 8.x

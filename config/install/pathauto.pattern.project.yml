@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: project
+label: Project
+type: 'canonical_entities:node'
+pattern: 'company/[node:field_company:target_id]/[node:content-type]/[node:title]'
+selection_criteria:
+  7bb75523-6687-4224-841b-78a92b45ad36:
+    id: node_type
+    bundles:
+      project: project
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 7bb75523-6687-4224-841b-78a92b45ad36
+selection_logic: and
+weight: -5
+relationships: {  }

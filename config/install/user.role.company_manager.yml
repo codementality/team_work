@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies: {  }
+id: company_manager
+label: 'Company Manager'
+weight: 5
+is_admin: null
+permissions:
+  - 'create company content'
+  - 'create company_team content'
+  - 'create project_team content'
+  - 'edit any company content'
+  - 'edit any company_team content'
+  - 'edit any project_team content'
+  - 'edit own company content'
+  - 'edit own company_team content'
+  - 'edit own project_team content'
+  - 'use company_management transition archive'
+  - 'use company_management transition publish'
+  - 'view company revisions'
+  - 'view company_team revisions'
+  - 'view project_team revisions'
