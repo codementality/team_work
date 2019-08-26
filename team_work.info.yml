@@ -3,6 +3,7 @@ description: Team Work, Project Management with Drupal
 package: Team Work
 
 dependencies:
+  - drupal:config
   - drupal:content_moderation
   - drupal:field_layout
   - drupal:taxonomy
